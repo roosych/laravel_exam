@@ -23,7 +23,9 @@ class CreateUsersTable extends Migration
             $table->string('workplace')->nullable();
             $table->string('phone')->nullable();
             $table->string('adress')->nullable();
-//            $table->string('webstatus')->nullable();
+
+            $table->unsignedBigInteger('status_id')->default(2);
+
             $table->string('avatar')->nullable();
             $table->integer('role')->default(0);
             $table->string('vk')->nullable();

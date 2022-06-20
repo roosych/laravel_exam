@@ -37,11 +37,12 @@
                     <div id="c_1" class="card border shadow-0 mb-g shadow-sm-hover" data-filter-tags="{{strtolower($user->name)}}">
                         <div class="card-body border-faded border-top-0 border-left-0 border-right-0 rounded-top">
                             <div class="d-flex flex-row align-items-center">
-                                <span class="status status-success mr-3">
-                                    <span class="rounded-circle profile-image d-block " style="background-image:url('img/demo/avatars/{{$user->avatar}}'); background-size: cover;"></span>
+                                <span class="status status-{{($user->status['class'])}} mr-3">
+                                    <span class="rounded-circle profile-image d-block " style="background-image:url('{{$user->avatar != null ? '/uploads/'.$user->avatar : '/img/demo/avatars/avatar-m.png' }}'); background-size: cover;"></span>
                                 </span>
+
                                 <div class="info-card-text flex-1">
-                                    <a href="{{route('users.show', $user->id)}}" class="fs-xl text-truncate text-truncate-lg text-info">{{$user->name}}</a>
+                                    <a href="{{route('users.show', $user->id)}}" class="fs-xl text-truncate text-truncate-lg text-info">{{$user->name}} </a>
                                     <a href="javascript:void(0);" class="fs-xl text-truncate text-truncate-lg text-info" data-toggle="dropdown" aria-expanded="false">
                                         <i class="fal fas fa-cog fa-fw d-inline-block ml-1 fs-md"></i>
                                         <i class="fal fa-angle-down d-inline-block ml-1 fs-md"></i>
@@ -60,10 +61,15 @@
                                             <i class="fa fa-camera"></i>
                                             Загрузить аватар
                                         </a>
-                                        <a href="#" class="dropdown-item" onclick="return confirm('are you sure?');">
-                                            <i class="fa fa-window-close"></i>
-                                            Удалить
-                                        </a>
+                                        <form action="{{route('users.destroy', $user->id)}}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="dropdown-item" onclick="return confirm('are you sure?');">
+                                                <i class="fa fa-window-close"></i>
+                                                Удалить
+                                            </button>
+                                        </form>
+
                                     </div>
                                     <span class="text-truncate text-truncate-xl">{{$user->workplace}}</span>
                                 </div>

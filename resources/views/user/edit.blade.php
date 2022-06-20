@@ -10,7 +10,7 @@
             </h1>
 
         </div>
-        <form action="" method="POST">
+        <form action="{{route('editinfo', $user->id)}}" method="POST">
             @csrf
             <div class="row">
                 <div class="col-xl-6">
@@ -23,25 +23,25 @@
                                 <!-- username -->
                                 <div class="form-group">
                                     <label class="form-label" for="">Имя</label>
-                                    <input type="text" class="form-control" value="{{$user->name}}">
+                                    <input type="text" class="form-control" value="{{$user->name}}" name="name">
                                 </div>
 
                                 <!-- title -->
                                 <div class="form-group">
                                     <label class="form-label" for="">Место работы</label>
-                                    <input type="text" class="form-control" value="{{$user->workplace}}">
+                                    <input type="text" class="form-control" value="{{$user->workplace}}" name="workplace">
                                 </div>
 
                                 <!-- tel -->
                                 <div class="form-group">
                                     <label class="form-label" for="">Номер телефона</label>
-                                    <input type="text" class="form-control" value="{{$user->phone}}">
+                                    <input type="text" class="form-control" value="{{$user->phone}}" name="phone">
                                 </div>
 
                                 <!-- address -->
                                 <div class="form-group">
                                     <label class="form-label" for="">Адрес</label>
-                                    <input type="text" class="form-control" value="{{$user->adress}}">
+                                    <input type="text" class="form-control" value="{{$user->adress}}" name="adress">
                                 </div>
                                 <div class="col-md-12 mt-3 d-flex flex-row-reverse">
                                     <button class="btn btn-warning waves-effect waves-themed">Редактировать</button>

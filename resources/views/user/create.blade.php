@@ -20,7 +20,7 @@
             @endif
 
         </div>
-        <form action="{{route('users.store')}}" method="POST">
+        <form action="{{route('users.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-xl-6">
@@ -81,10 +81,11 @@
                                 <!-- status -->
                                 <div class="form-group">
                                     <label class="form-label" for="example-select">Выберите статус</label>
-                                    <select class="form-control" id="example-select" name="">
-                                        <option>Онлайн</option>
-                                        <option>Отошел</option>
-                                        <option>Не беспокоить</option>
+                                    <select class="form-control" id="example-select" name="status_id">
+                                        <option value="">Выберите статус</option>
+                                        @foreach($statuses as $status)
+                                            <option value="{{$status->id}}">{{$status->title}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 

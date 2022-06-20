@@ -17,9 +17,9 @@
                     <div class="row no-gutters row-grid">
                         <div class="col-12">
                             <div class="d-flex flex-column align-items-center justify-content-center p-4">
-                                <img src="/img/demo/avatars/{{($user->avatar)}}" class="rounded-circle shadow-2 img-thumbnail" alt="">
+                                <img src="{{$user->avatar != null ? '/uploads/'.$user->avatar : '/img/demo/avatars/avatar-m.png' }}" class="rounded-circle shadow-2 img-thumbnail" alt="" width="100">
                                 <h5 class="mb-0 fw-700 text-center mt-3">
-                                    {{($user->name)}}
+                                    {{$user->name}}
                                     <small class="text-muted mb-0">{{($user->workplace)}}</small>
                                 </h5>
                                 <div class="mt-4 text-center demo">
@@ -38,11 +38,11 @@
                         <div class="col-12">
                             <div class="p-3 text-center">
                                 <a href="tel:{{($user->phone)}}" class="mt-1 d-block fs-sm fw-400 text-dark">
-                                    <i class="fas fa-mobile-alt text-muted mr-2"></i> {{($user->phone)}}</a>
+                                    <i class="fas fa-mobile-alt text-muted mr-2"></i> {{$user->phone}}</a>
                                 <a href="mailto:{{($user->email)}}" class="mt-1 d-block fs-sm fw-400 text-dark">
-                                    <i class="fas fa-mouse-pointer text-muted mr-2"></i> {{($user->email)}}</a>
+                                    <i class="fas fa-mouse-pointer text-muted mr-2"></i> {{$user->email}}</a>
                                 <address class="fs-sm fw-400 mt-4 text-muted">
-                                    <i class="fas fa-map-pin mr-2"></i> {{($user->adress)}}
+                                    <i class="fas fa-map-pin mr-2"></i> {{$user->adress}}
                                 </address>
                             </div>
                         </div>

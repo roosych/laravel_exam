@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Status;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -19,6 +20,16 @@ class UserController extends Controller
         return view('home.users', compact('users'));
     }
 
+
+    public function avatarExist(User $user)
+    {
+        if($user->avatar != null) {
+            return $user->avatar;
+        }
+        return 'avatara net';
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -26,8 +37,9 @@ class UserController extends Controller
      */
     public function create()
     {
+        $statuses = Status::all();
 
-        return view('user.create');
+        return view('user.create', compact('statuses'));
     }
 
     /**
@@ -39,12 +51,25 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //сделать валидацию после тестирования
-        $validData = $request->validate([
+        $request->validate([
             'email' => ['required'],
             'password' => ['required'],
         ]);
 
-        $user = User::create($request->all());
+        if ($request->file('avatar') == null) {
+            $path = "";
+        } else {
+            //возвращает имя файла, записываю в переменную path
+            $path = $request->file('avatar')->store('avatars');
+        }
+
+
+        $params = $request->all();
+
+        //записываю путь картинки в массив под ключом avatar
+        $params['avatar'] = $path;
+
+        User::create($params);
 
         return redirect()->route('users.index')->with('success', 'Пользователь создан');
 
@@ -95,7 +120,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+
     }
 
 
@@ -107,35 +132,28 @@ class UserController extends Controller
         return view('user.media', compact('user'));
     }
 
-    public function uploadAvatar(Request $request, User $user)
-    {
-
-    }
-
     public function security(User $user)
     {
 
         return view('user.security', compact('user'));
     }
 
-    public function editEmail(Request $request, User $user)
-    {
-
-    }
-
-    public function editPass(Request $request, User $user)
-    {
-
-    }
-
     public function status(User $user)
     {
-
-        return view('user.status', compact('user'));
+        $statuses = Status::all();
+        return view('user.status', compact('user', 'statuses'));
     }
 
     public function setStatus(Request $request, User $user)
     {
+        User::where('id', $user->id)->first()->update(['status_id' => $request['status_id']]);
 
+        return redirect()->back()->with('success', 'Статус изменен');
     }
+
+    public function editInfo(Request $request, User $user)
+    {
+        dd($request->all());
+    }
+
 }
